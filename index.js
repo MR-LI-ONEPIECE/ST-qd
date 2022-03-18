@@ -57,6 +57,7 @@ app.post("/api/userInfo", async (req, res) => {
     await UserInfo.create(result)
   } catch (error) {
     res.send({
+      code: 400,
       error: error
     })
     return
@@ -66,6 +67,43 @@ app.post("/api/userInfo", async (req, res) => {
     code: 200,
     data: result
   })
+
+})
+//获取用户列表
+app.get("/api/userInfo", async (req, res) => {
+
+  try {
+    const userList = UserInfo.get();
+    console.log(userList)
+  } catch (error) {
+
+  }
+
+  try {
+    console.log(UserInfo.where())
+  } catch (error) {
+
+  }
+
+  try {
+    console.log(UserInfo.getDataValue())
+  } catch (error) {
+
+  }
+
+  try {
+    console.log(UserInfo.findAll())
+  } catch (error) {
+
+  }
+
+  try {
+    console.log(UserInfo.find())
+  } catch (error) {
+
+  }
+
+
 
 })
 
