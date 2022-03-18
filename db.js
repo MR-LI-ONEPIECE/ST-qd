@@ -65,11 +65,11 @@ const UserInfo = sequelize.define("UserInfo", {
     type: DataTypes.CHAR,
     allowNull: true
   },
-  phone: {
+  sex: {
     type: DataTypes.CHAR,
     allowNull: true
   },
-  class: {
+  phone: {
     type: DataTypes.CHAR,
     allowNull: true
   },
@@ -77,6 +77,23 @@ const UserInfo = sequelize.define("UserInfo", {
     type: DataTypes.CHAR,
     allowNull: true
   },
+  studentNum: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
+  class: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
+  grade: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
+  college: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
+
 });
 // 数据库初始化方法
 async function init() {
