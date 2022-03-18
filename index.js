@@ -54,7 +54,7 @@ app.post("/api/userInfo", async (req, res) => {
   const result = req.body;
   console.log(result)
   try {
-    await UserInfo.update(result)
+    await UserInfo.create(result)
   } catch (error) {
     res.send({
       error: error
