@@ -73,7 +73,7 @@ app.post("/api/userInfo", async (req, res) => {
 app.get("/api/userInfo", async (req, res) => {
 
   try {
-    const userList = await UserInfo.get();
+    const userList = await UserInfo.findAll();
 
     console.log(userList)
     res.send({
