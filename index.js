@@ -73,19 +73,19 @@ app.post("/api/userInfo", async (req, res) => {
 app.get("/api/userInfo", async (req, res) => {
 
   try {
-    const userList = await UserInfo.get('userInfo');
+    const userList = await UserInfo.get();
+
+    console.log(userList)
     res.send({
       code: 200,
       data: userList
     })
-    console.log(userList)
   } catch (error) {
     res.send({
       code: 400,
       error: error
     })
   }
-
 
 
   // try {
@@ -101,6 +101,7 @@ app.get("/api/userInfo", async (req, res) => {
   // } catch (error) {
 
   // }
+
 
 
 
