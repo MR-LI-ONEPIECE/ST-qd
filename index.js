@@ -54,21 +54,17 @@ app.post("/api/userInfo", async (req, res) => {
   const result = req.body;
   console.log(result)
   try {
-    await UserInfo.Instance(result)
+    await UserInfo.update(result)
   } catch (error) {
     res.send({
-      code: 400,
-      data: {
-        isOK: false,
-        data: result
-      }
+      error: error
     })
     return
   }
 
   res.send({
-    code: 0,
-    data: { isOK: true, data: result }
+    code: 200,
+    data: result
   })
 
 })
