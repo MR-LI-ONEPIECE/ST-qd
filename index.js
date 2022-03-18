@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const { init: initDB, Counter } = require("./db");
+const { init: initDB, Counter, UserInfo } = require("./db");
 
 const logger = morgan("tiny");
 
@@ -48,6 +48,30 @@ app.get("/api/wx_openid", async (req, res) => {
     res.send(req.headers["x-wx-openid"]);
   }
 });
+
+// 提交用户信息
+app.post("/api/userInfo", async (req, res) => {
+  const result = req.body;
+  console.log(result)
+  try {
+    await UserInfo.Instance(result)
+  } catch (error) {
+    res.send({
+      code: 400,
+      data: {
+        isOK: false,
+        data: result
+      }
+    })
+    return
+  }
+
+  res.send({
+    code: 0,
+    data: { isOK: true, data: result }
+  })
+
+})
 
 const port = process.env.PORT || 80;
 
