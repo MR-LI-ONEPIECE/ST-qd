@@ -73,32 +73,24 @@ app.post("/api/userInfo", async (req, res) => {
 app.get("/api/userInfo", async (req, res) => {
 
   try {
-    const userList = UserInfo.get();
+    const userList = await UserInfo.get('userInfo');
     console.log(userList)
   } catch (error) {
 
   }
 
+
+
   try {
-    console.log(UserInfo.where())
+    const aa = await UserInfo.getDataValue('userInfo')
+    console.log(aa)
   } catch (error) {
 
   }
 
   try {
-    console.log(UserInfo.getDataValue())
-  } catch (error) {
-
-  }
-
-  try {
-    console.log(UserInfo.findAll())
-  } catch (error) {
-
-  }
-
-  try {
-    console.log(UserInfo.find())
+    const bb = await UserInfo.findAll()
+    console.log(bb)
   } catch (error) {
 
   }
