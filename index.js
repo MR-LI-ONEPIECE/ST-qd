@@ -74,26 +74,33 @@ app.get("/api/userInfo", async (req, res) => {
 
   try {
     const userList = await UserInfo.get('userInfo');
+    res.send({
+      code: 200,
+      data: userList
+    })
     console.log(userList)
   } catch (error) {
-
+    res.send({
+      code: 400,
+      error: error
+    })
   }
 
 
 
-  try {
-    const aa = await UserInfo.getDataValue('userInfo')
-    console.log(aa)
-  } catch (error) {
+  // try {
+  //   const aa = await UserInfo.getDataValue('userInfo')
+  //   console.log(aa)
+  // } catch (error) {
 
-  }
+  // }
 
-  try {
-    const bb = await UserInfo.findAll()
-    console.log(bb)
-  } catch (error) {
+  // try {
+  //   const bb = await UserInfo.findAll()
+  //   console.log(bb)
+  // } catch (error) {
 
-  }
+  // }
 
 
 
