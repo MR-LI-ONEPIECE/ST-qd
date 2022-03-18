@@ -52,11 +52,11 @@ const Counter = sequelize.define("Counter", {
 
 
 const UserInfo = sequelize.define("UserInfo", {
-  id: {
-    type: DataTypes.INTEGER, // 要与数据库声明的类型匹配
-    autoIncrementIdentity: true, // 自增
-    primaryKey: true, // 主键
-  },
+  // id: {
+  //   type: DataTypes.INTEGER, // 要与数据库声明的类型匹配
+  //   autoIncrementIdentity: true, // 自增
+  //   primaryKey: true, // 主键
+  // },
   name: {
     type: DataTypes.CHAR,
     allowNull: true
