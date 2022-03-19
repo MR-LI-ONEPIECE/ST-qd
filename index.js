@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const { init: initDB, Counter, UserInfo } = require("./db");
+const { init: initDB, Counter, UserInfo, SignIn } = require("./db");
 
 const logger = morgan("tiny");
 
@@ -86,25 +86,45 @@ app.get("/api/userInfo", async (req, res) => {
       error: error
     })
   }
+})
 
+//学生签到
+app.post("/api/signIn", async (req, res) => {
+  const result = req.body;
+  console.log(result)
+  try {
+    await SignIn.create(result)
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: error
+    })
+    return
+  }
+  res.send({
+    code: 200,
+    data: result
+  })
 
-  // try {
-  //   const aa = await UserInfo.getDataValue('userInfo')
-  //   console.log(aa)
-  // } catch (error) {
+})
 
-  // }
+//获取学生签到列表
+app.get("/api/signIn", async (req, res) => {
 
-  // try {
-  //   const bb = await UserInfo.findAll()
-  //   console.log(bb)
-  // } catch (error) {
+  try {
+    const signInList = await SignIn.findAll();
 
-  // }
-
-
-
-
+    console.log(signInList)
+    res.send({
+      code: 200,
+      data: signInList
+    })
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: error
+    })
+  }
 })
 
 const port = process.env.PORT || 80;

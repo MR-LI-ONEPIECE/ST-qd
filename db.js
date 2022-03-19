@@ -50,7 +50,7 @@ const Counter = sequelize.define("Counter", {
   },
 });
 
-
+//用户信息
 const UserInfo = sequelize.define("UserInfo", {
   // id: {
   //   type: DataTypes.INTEGER, // 要与数据库声明的类型匹配
@@ -92,13 +92,29 @@ const UserInfo = sequelize.define("UserInfo", {
   college: {
     type: DataTypes.CHAR,
     allowNull: true
-  },
-
+  }
 });
+
+//签到信息
+const SignIn = sequelize.define("signIn", {
+  year: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
+  month: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
+  day: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
+})
 // 数据库初始化方法
 async function init() {
   await Counter.sync({ alter: true });
   await UserInfo.sync({ alter: true });
+  await SignIn.sync({ alter: true })
 }
 
 
@@ -106,5 +122,6 @@ async function init() {
 module.exports = {
   init,
   Counter,
-  UserInfo
+  UserInfo,
+  SignIn
 };
