@@ -49,7 +49,7 @@ app.get("/api/wx_openid", async (req, res) => {
   }
 });
 
-// 提交用户信息
+// 提交用户信息列表
 app.post("/api/userInfo", async (req, res) => {
   const result = req.body;
   console.log(result)
@@ -110,9 +110,13 @@ app.post("/api/signIn", async (req, res) => {
 
 //获取学生签到列表
 app.get("/api/signIn", async (req, res) => {
-
+  const result = req.body
   try {
-    const signInList = await SignIn.findAll();
+    const signInList = await SignIn.findAll({
+      where: {
+        userCode: result.userCode
+      }
+    });
 
     console.log(signInList)
     res.send({

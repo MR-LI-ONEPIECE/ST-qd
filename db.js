@@ -92,7 +92,11 @@ const UserInfo = sequelize.define("UserInfo", {
   college: {
     type: DataTypes.CHAR,
     allowNull: true
-  }
+  },
+  userCode: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
 });
 
 //签到信息
@@ -106,6 +110,10 @@ const SignIn = sequelize.define("signIn", {
     allowNull: true
   },
   day: {
+    type: DataTypes.CHAR,
+    allowNull: true
+  },
+  userCode: {
     type: DataTypes.CHAR,
     allowNull: true
   },
