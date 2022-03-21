@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const { init: initDB, Counter, UserInfo, SignIn } = require("./db");
+const { init: initDB, Counter, UserInfo, SignIn, Login } = require("./db");
 
 const logger = morgan("tiny");
 
@@ -121,6 +121,30 @@ app.get("/api/signIn", async (req, res) => {
       code: 400,
       error: error,
     });
+  }
+});
+
+//登陆
+app.post("/api/login", async (req, res) => {
+  const result = req.body;
+  console.log(result);
+  try {
+    var data = await Login.findAll({
+      where: {
+        username: "root",
+        password: "123456",
+      },
+    });
+    res.send({
+      code: 0,
+      data: data,
+    });
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: error,
+    });
+    return;
   }
 });
 

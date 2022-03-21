@@ -8,7 +8,7 @@ const [host, port] = MYSQL_ADDRESS.split(":");
 const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
   host,
   port,
-  dialect: "mysql", /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
+  dialect: "mysql" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
   // 连接池
   // pool: {
   //   max: 5,
@@ -40,13 +40,24 @@ const sequelize = new Sequelize("nodejs_demo", MYSQL_USERNAME, MYSQL_PASSWORD, {
 
 // class UserInfo extends Model { }
 
-
 // 定义数据模型
 const Counter = sequelize.define("Counter", {
   count: {
     type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 1,
+  },
+});
+
+// 登陆信息
+const Login = sequelize.define("Login", {
+  username: {
+    type: DataTypes.CHAR,
+    allowNull: true,
+  },
+  password: {
+    type: DataTypes.CHAR,
+    allowNull: true,
   },
 });
 
@@ -59,43 +70,43 @@ const UserInfo = sequelize.define("UserInfo", {
   // },
   name: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   age: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   sex: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   phone: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   major: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   studentNum: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   class: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   grade: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   college: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   userCode: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
 });
 
@@ -103,33 +114,33 @@ const UserInfo = sequelize.define("UserInfo", {
 const SignIn = sequelize.define("signIn", {
   year: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   month: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   day: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
   userCode: {
     type: DataTypes.CHAR,
-    allowNull: true
+    allowNull: true,
   },
-})
+});
 // 数据库初始化方法
 async function init() {
   await Counter.sync({ alter: true });
   await UserInfo.sync({ alter: true });
-  await SignIn.sync({ alter: true })
+  await SignIn.sync({ alter: true });
+  await Login.sync({ alter: true });
 }
-
 
 // 导出初始化方法和模型
 module.exports = {
   init,
   Counter,
   UserInfo,
-  SignIn
+  SignIn,
 };
