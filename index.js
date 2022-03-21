@@ -131,20 +131,21 @@ app.post("/api/login", async (req, res) => {
   try {
     var data = await Login.findAll();
     console.log(data);
-    if (
-      data[0].username === result.username &&
-      data[0].password === result.password
-    ) {
-      res.send({
-        code: 0,
-        data: data,
-      });
-    } else {
-      res.send({
-        code: 400,
-        error: "账号或密码错误",
-      });
-    }
+    res.send({
+      code: 0,
+      data: data,
+    });
+    // if (
+    //   data[0].username === result.username &&
+    //   data[0].password === result.password
+    // ) {
+
+    // } else {
+    //   res.send({
+    //     code: 400,
+    //     error: "账号或密码错误",
+    //   });
+    // }
   } catch (error) {
     res.send({
       code: 400,
