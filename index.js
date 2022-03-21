@@ -64,7 +64,7 @@ app.post("/api/userInfo", async (req, res) => {
   }
 
   res.send({
-    code: 200,
+    code: 0,
     data: result
   })
 
@@ -77,7 +77,7 @@ app.get("/api/userInfo", async (req, res) => {
 
     console.log(userList)
     res.send({
-      code: 200,
+      code: 0,
       data: userList
     })
   } catch (error) {
@@ -102,7 +102,7 @@ app.post("/api/signIn", async (req, res) => {
     return
   }
   res.send({
-    code: 200,
+    code: 0,
     data: result
   })
 
@@ -120,7 +120,7 @@ app.get("/api/signIn", async (req, res) => {
 
     console.log(signInList)
     res.send({
-      code: 200,
+      code: 0,
       data: signInList
     })
   } catch (error) {
