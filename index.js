@@ -52,84 +52,77 @@ app.get("/api/wx_openid", async (req, res) => {
 // 提交用户信息列表
 app.post("/api/userInfo", async (req, res) => {
   const result = req.body;
-  console.log(result)
+  console.log(result);
   try {
-    await UserInfo.create(result)
+    await UserInfo.create(result);
   } catch (error) {
     res.send({
       code: 400,
-      error: error
-    })
-    return
+      error: error,
+    });
+    return;
   }
 
   res.send({
     code: 0,
-    data: result
-  })
-
-})
+    data: result,
+  });
+});
 //获取用户列表
 app.get("/api/userInfo", async (req, res) => {
-
   try {
     const userList = await UserInfo.findAll();
 
-    console.log(userList)
+    console.log(userList);
     res.send({
       code: 0,
-      data: userList
-    })
+      data: userList,
+    });
   } catch (error) {
     res.send({
       code: 400,
-      error: error
-    })
+      error: error,
+    });
   }
-})
+});
 
 //学生签到
 app.post("/api/signIn", async (req, res) => {
   const result = req.body;
-  console.log(result)
+  console.log(result);
   try {
-    await SignIn.create(result)
+    await SignIn.create(result);
   } catch (error) {
     res.send({
       code: 400,
-      error: error
-    })
-    return
+      error: error,
+    });
+    return;
   }
   res.send({
     code: 0,
-    data: result
-  })
-
-})
+    data: result,
+  });
+});
 
 //获取学生签到列表
 app.get("/api/signIn", async (req, res) => {
-  const result = req.body
+  const result = req.body;
   try {
-    const signInList = await SignIn.findAll({
-      where: {
-        userCode: result.userCode
-      }
-    });
+    const signInList = await SignIn.findAll();
 
-    console.log(signInList)
+    console.log(signInList);
     res.send({
       code: 0,
-      data: signInList
-    })
+      data: signInList,
+    });
   } catch (error) {
     res.send({
       code: 400,
-      error: error
-    })
+      error: error,
+    });
   }
-})
+});
 
 const port = process.env.PORT || 80;
 
