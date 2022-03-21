@@ -15,7 +15,9 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <title>欢迎使用微信云托管</title>
+    <!-- 引入 layui.css -->
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css" />
+    <title>欢迎使用后台管理系统</title>
     <style>
       .title-logo {
         height: 80px;
@@ -63,20 +65,7 @@
 
   <body>
     <div class="container">
-      <div class="title">
-        <img class="title-logo" src="https://static-index-4gtuqm3bfa95c963-1304825656.tcloudbaseapp.com/official-website/favicon.svg" />
-        <h1 style="display: inline; margin-bottom: 48px">欢迎使用微信云托管</h1>
-      </div>
-      <div style="text-align: center">
-        <p class="count-text">当前计数：<span class="count-number"></span></p>
-        <div style="display: flex; justify-content: center; margin-bottom: 80px">
-          <a class="btn btn-success btn-lg count-button" style="background: #07c160; border: 0" onclick="set('inc')">计数+1</a>
-          <a class="btn btn-outline-success btn-lg count-button" style="background: rgba(0, 0, 0, 0.03); color: #07c160; border: 0" onclick="set('clear')">清零</a>
-        </div>
-        <small class="text-black-50" style="display: flex; justify-content: center; margin-bottom: 16px">扫码加入微信云托管用户群</small>
-        <img class="qrcode middle" src="https://qcloudimg.tencent-cloud.cn/raw/89b46988d3cd73d8a56e76a1b82bb377.png" />
-      </div>
-      <table>
+      <table class="layui-table" style="margin: auto">
         <thead>
           <tr>
             <th>姓名</th>
@@ -113,6 +102,8 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"
   ></script>
+  <!-- 引入 layui.js -->
+  <script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
   <script>
     init();
     function init() {
@@ -120,7 +111,7 @@
         method: "get",
       }).done(function (res) {
         if (res && res.data !== undefined) {
-          var body = createTable(res.data);
+          var body = createTable(res.data.data);
           $("#userInfoList").html(body);
         }
       });
