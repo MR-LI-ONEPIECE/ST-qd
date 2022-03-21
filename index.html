@@ -253,7 +253,7 @@
       layui.$("#submitUser").on("click", function () {
         var data = form.val("example");
         $.ajax("/api/login", {
-          method: "POST",
+          method: "GET",
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           data: JSON.stringify(data),
