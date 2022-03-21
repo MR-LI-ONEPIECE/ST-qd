@@ -130,7 +130,7 @@ app.post("/api/login", async (req, res) => {
   console.log(result);
   try {
     var data = await Login.findAll({
-      where: {
+      attributes: {
         username: "root",
         password: "123456",
       },
