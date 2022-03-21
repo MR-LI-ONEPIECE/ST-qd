@@ -65,6 +65,9 @@
 
   <body>
     <div class="container">
+      <div class="title">
+        <h1>学生信息登记后台管理系统</h1>
+      </div>
       <table class="layui-table" style="margin: auto">
         <thead>
           <tr>
@@ -79,20 +82,7 @@
             <th>学院</th>
           </tr>
         </thead>
-        <tbody id="userInfoList">
-          <tr>
-            <td>${data[index.name]}</td>
-            <td>${data[index.age]}</td>
-            <td>${data[index.sex]}</td>
-            <td>${data[index.phone]}</td>
-            <td>${data[index.major]}</td>
-            <td>${data[index.studentNum]}</td>
-            <td>${data[index.class]}</td>
-            <td>${data[index.grade]}</td>
-            <td>${data[index.college]}</td>
-            <td>${data[index.userCode]}</td>
-          </tr>
-        </tbody>
+        <tbody id="userInfoList"></tbody>
       </table>
     </div>
   </body>
@@ -111,7 +101,7 @@
         method: "get",
       }).done(function (res) {
         if (res && res.data !== undefined) {
-          var body = createTable(res.data.data);
+          var body = createTable(res.data);
           $("#userInfoList").html(body);
         }
       });
@@ -120,16 +110,15 @@
       var body = "";
       for (let index = 0; index < data.length; index++) {
         body += `<tr>
-            <td>${data[index.name]}</td>
-            <td>${data[index.age]}</td>
-            <td>${data[index.sex]}</td>
-            <td>${data[index.phone]}</td>
-            <td>${data[index.major]}</td>
-            <td>${data[index.studentNum]}</td>
-            <td>${data[index.class]}</td>
-            <td>${data[index.grade]}</td>
-            <td>${data[index.college]}</td>
-            <td>${data[index.userCode]}</td>
+            <td>${data[index].name}</td>
+            <td>${data[index].age}</td>
+            <td>${data[index].sex}</td>
+            <td>${data[index].phone}</td>
+            <td>${data[index].major}</td>
+            <td>${data[index].studentNum}</td>
+            <td>${data[index].class}</td>
+            <td>${data[index].grade}</td>
+            <td>${data[index].college}</td>
           </tr>`;
       }
       return body;
