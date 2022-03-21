@@ -131,7 +131,10 @@ app.post("/api/login", async (req, res) => {
   try {
     var data = await Login.findAll();
     console.log(data);
-    if (data[0] === result) {
+    if (
+      data[0].username === result.username &&
+      data[0].password === result.password
+    ) {
       res.send({
         code: 0,
         data: data,
