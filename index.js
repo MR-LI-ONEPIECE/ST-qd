@@ -112,7 +112,11 @@ app.post("/api/signIn", async (req, res) => {
 app.get("/api/signIn", async (req, res) => {
   const result = req.body
   try {
-    const signInList = await SignIn.findAll();
+    const signInList = await SignIn.findAll({
+      where: {
+        userCode: result.userCode
+      }
+    });
 
     console.log(signInList)
     res.send({
