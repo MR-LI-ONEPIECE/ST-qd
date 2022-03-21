@@ -129,13 +129,19 @@ app.post("/api/login", async (req, res) => {
   const result = req.body;
   console.log(result);
   try {
-    var data = await Login.findAll({
-      attributes: ["id", "username", "password", "createdAt", "updatedAt"],
-    });
-    res.send({
-      code: 0,
-      data: data,
-    });
+    var data = await Login.findAll();
+    console.log(data);
+    if (data[0] === result) {
+      res.send({
+        code: 0,
+        data: data,
+      });
+    } else {
+      res.send({
+        code: 400,
+        error: "账号或密码错误",
+      });
+    }
   } catch (error) {
     res.send({
       code: 400,
