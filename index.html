@@ -67,30 +67,26 @@
   <body>
     <div class="layui-layout layui-layout-admin">
       <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black">学生信息管理系统</div>
+        <div class="layui-logo layui-hide-xs layui-bg-black">
+          学生信息管理系统
+        </div>
         <!-- 头部区域（可配合layui 已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
           <!-- 移动端显示 -->
-          <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+          <li
+            class="layui-nav-item layui-show-xs-inline-block layui-hide-sm"
+            lay-header-event="menuLeft"
+          >
             <i class="layui-icon layui-icon-spread-left"></i>
           </li>
-
-          <!-- <li class="layui-nav-item layui-hide-xs"><a href="">nav 1</a></li>
-          <li class="layui-nav-item layui-hide-xs"><a href="">nav 2</a></li>
-          <li class="layui-nav-item layui-hide-xs"><a href="">nav 3</a></li>
-          <li class="layui-nav-item">
-            <a href="javascript:;">nav groups</a>
-            <dl class="layui-nav-child">
-              <dd><a href="">menu 11</a></dd>
-              <dd><a href="">menu 22</a></dd>
-              <dd><a href="">menu 33</a></dd>
-            </dl>
-          </li> -->
         </ul>
         <ul class="layui-nav layui-layout-right">
           <li class="layui-nav-item layui-hide layui-show-md-inline-block">
             <a href="javascript:;">
-              <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img" />
+              <img
+                src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                class="layui-nav-img"
+              />
               tester
             </a>
             <dl class="layui-nav-child">
@@ -110,13 +106,13 @@
       <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
           <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-          <ul class="layui-nav layui-nav-tree" lay-filter="test">
+          <ul class="layui-nav layui-nav-tree" lay-filter="leftNav">
             <li class="layui-nav-item layui-nav-itemed">
               <dl class="layui-nav-child">
-                <dd><a href="javascript:;">学生信息列表</a></dd>
-                <dd><a href="javascript:;">学生签到列表</a></dd>
-                <dd><a href="javascript:;">menu 3</a></dd>
-                <dd><a href="">the links</a></dd>
+                <dd><a href="javascript:;" name="infoList">学生信息列表</a></dd>
+                <dd>
+                  <a href="javascript:;" name="signInList">学生签到列表</a>
+                </dd>
               </dl>
             </li>
           </ul>
@@ -128,29 +124,7 @@
         <div style="padding: 15px">
           <blockquote class="layui-elem-quote">学生信息列表</blockquote>
           <table id="userList" lay-filter="test"></table>
-
-          <table class="layui-table" style="margin: auto">
-            <thead>
-              <tr>
-                <th>姓名</th>
-                <th>年龄</th>
-                <th>性别</th>
-                <th>手机号</th>
-                <th>专业</th>
-                <th>学号</th>
-                <th>班级</th>
-                <th>年纪</th>
-                <th>学院</th>
-              </tr>
-            </thead>
-            <tbody id="userInfoList"></tbody>
-          </table>
         </div>
-      </div>
-
-      <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        底部固定区域
       </div>
     </div>
   </body>
@@ -163,6 +137,29 @@
   <!-- 引入 layui.js -->
   <script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
   <script>
+    var infoList = [
+      //表头
+      { field: "id", title: "ID", width: 80, sort: true, fixed: "left" },
+      { field: "name", title: "姓名", width: 80 },
+      { field: "age", title: "年龄", width: 80 },
+      { field: "sex", title: "性别", width: 80, sort: true },
+      { field: "phone", title: "手机号", width: 80 },
+      { field: "major", title: "专业", width: 80 },
+      { field: "studentNum", title: "学号", width: 80 },
+      { field: "class", title: "班级", width: 80 },
+      { field: "grade", title: "年纪", width: 80 },
+      { field: "college", title: "学院", width: 80, sort: true },
+      { field: "userCode", title: "用户code", width: 80, sort: true },
+    ];
+
+    var signInList = [
+      //表头
+      { field: "id", title: "ID", width: 80, sort: true, fixed: "left" },
+      { field: "year", title: "年", width: 80 },
+      { field: "month", title: "月", width: 80 },
+      { field: "day", title: "日", width: 80, sort: true },
+      { field: "userCode", title: "用户code", width: 80, sort: true },
+    ];
     //JS
     layui.use(["element", "layer", "util", "table"], function () {
       var element = layui.element,
@@ -170,9 +167,19 @@
         util = layui.util,
         $ = layui.$,
         table = layui.table;
-
+      //左侧导航栏点击事件
+      element.on("nav(leftNav)", function (data) {
+        if (data.context.name === "infoList") {
+          createTable(table, "/api/userInfo", infoList);
+        } else if (data.context.name === "signInList") {
+          createTable(table, "/api/signIn", signInList);
+        }
+      });
       //头部事件
       util.event("lay-header-event", {
+        menubar: function (data) {
+          console.log(data);
+        },
         //左侧菜单事件
         menuLeft: function (othis) {
           layer.msg("展开左侧菜单的操作", { icon: 0 });
@@ -213,48 +220,15 @@
         ],
       });
     });
-  </script>
-  <script>
-    // init();
-    function init() {
-      $.ajax("/api/userInfo", {
-        method: "get",
-      }).done(function (res) {
-        if (res && res.data !== undefined) {
-          var body = createTable(res.data);
-          $("#userInfoList").html(body);
-        }
-      });
-    }
-    function createTable(data) {
-      var body = "";
-      for (let index = 0; index < data.length; index++) {
-        body += `<tr>
-            <td>${data[index].name}</td>
-            <td>${data[index].age}</td>
-            <td>${data[index].sex}</td>
-            <td>${data[index].phone}</td>
-            <td>${data[index].major}</td>
-            <td>${data[index].studentNum}</td>
-            <td>${data[index].class}</td>
-            <td>${data[index].grade}</td>
-            <td>${data[index].college}</td>
-          </tr>`;
-      }
-      return body;
-    }
-    function set(action) {
-      $.ajax("/api/count", {
-        method: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify({
-          action: action,
-        }),
-      }).done(function (res) {
-        if (res && res.data !== undefined) {
-          $(".count-number").html(res.data);
-        }
+
+    function createTable(table, url, data) {
+      //用户签到列表
+      table.render({
+        elem: "#userList",
+        height: 500,
+        url, //数据接口
+        page: true, //开启分页
+        cols: [data],
       });
     }
   </script>
