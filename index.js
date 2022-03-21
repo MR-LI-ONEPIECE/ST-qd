@@ -130,7 +130,7 @@ app.post("/api/login", async (req, res) => {
   console.log(result);
   try {
     var data = await Login.findAll({
-      attributes: ["username"],
+      attributes: ["id", "username", "password", "createdAt", "updatedAt"],
     });
     res.send({
       code: 0,
