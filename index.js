@@ -139,8 +139,8 @@ app.get("/api/signInAll", async (req, res) => {
   SignIn.findAll({
     include: [{ model: UserInfo, attributes: ["name"] }],
   })
-    .then(async (result) => {
-      var data = await concatData(result);
+    .then((result) => {
+      var data = concatData(result);
       res.send({
         code: 0,
         data,
