@@ -107,6 +107,7 @@ const UserInfo = sequelize.define("UserInfo", {
   openId: {
     type: DataTypes.CHAR,
     allowNull: true,
+    primaryKey: true,
   },
 });
 
@@ -127,6 +128,7 @@ const SignIn = sequelize.define("signIn", {
   openId: {
     type: DataTypes.CHAR,
     allowNull: true,
+    primaryKey: true,
   },
 });
 // 数据库初始化方法
