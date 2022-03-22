@@ -133,7 +133,7 @@ const SignIn = sequelize.define("signIn", {
 });
 
 //关联表
-SignIn.belongsTo(UserInfo, { as: 'u', foreignKey: 'openId', targetKey: 'openId' })
+SignIn.belongsTo(UserInfo, { foreignKey: 'openId', targetKey: 'openId' })
 
 // 数据库初始化方法
 async function init() {
