@@ -125,9 +125,8 @@ app.get("/api/signIn", async (req, res) => {
 });
 
 //登陆
-app.post("/api/login", async (req, res) => {
-  const result = req.body;
-  console.log(result);
+app.get("/api/login", async (req, res) => {
+
   try {
     var data = await Login.findAll();
     console.log(data);
