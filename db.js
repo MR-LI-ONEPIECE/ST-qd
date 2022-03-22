@@ -104,7 +104,7 @@ const UserInfo = sequelize.define("UserInfo", {
     type: DataTypes.CHAR,
     allowNull: true,
   },
-  userCode: {
+  openId: {
     type: DataTypes.CHAR,
     allowNull: true,
   },
@@ -124,7 +124,7 @@ const SignIn = sequelize.define("signIn", {
     type: DataTypes.CHAR,
     allowNull: true,
   },
-  userCode: {
+  openId: {
     type: DataTypes.CHAR,
     allowNull: true,
   },
