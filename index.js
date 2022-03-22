@@ -110,7 +110,7 @@ app.post("/api/signIn", async (req, res) => {
   });
 });
 
-//获取学生签到列表
+//获取某个学生签到列表
 app.get("/api/signIn", async (req, res) => {
   const result = req.query;
   console.log(result)
@@ -120,6 +120,33 @@ app.get("/api/signIn", async (req, res) => {
         where: {
           openId: result.openId
         }
+      }
+    );
+
+    console.log(signInList);
+    res.send({
+      code: 0,
+      data: signInList,
+    });
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: error,
+      data: result
+    });
+  }
+});
+
+//获取所有学生签到列表
+app.get("/api/signInAll", async (req, res) => {
+  const result = req.query;
+  console.log(result)
+  try {
+    const signInList = await SignIn.findAll(
+      {
+        include: [
+          { model: UserInfo, attributes: ['name'] }
+        ]
       }
     );
 

@@ -184,8 +184,8 @@
   <script>
     var infoList = [
       //表头
-      { field: "id", title: "ID", width: 80, sort: true, fixed: "left" },
-      { field: "name", title: "姓名", width: 80 },
+      // { field: "id", title: "ID", width: 80, sort: true,  },
+      { field: "name", title: "姓名", width: 80, fixed: "left" },
       { field: "age", title: "年龄", width: 80 },
       { field: "sex", title: "性别", width: 80, sort: true },
       { field: "phone", title: "手机号", width: 120 },
@@ -198,8 +198,9 @@
 
     var signInList = [
       //表头
-      { field: "id", title: "ID", width: 80, sort: true, fixed: "left" },
-      { field: "year", title: "年", width: 80 },
+      // { field: "id", title: "ID", width: 80, sort: true},
+      { field: "u.name", title: "姓名", width: 80, fixed: "left" },
+      { field: "year", title: "年", width: 80, fixed: "left" },
       { field: "month", title: "月", width: 80 },
       { field: "day", title: "日", width: 80, sort: true },
     ];
@@ -243,7 +244,7 @@
           createTable(table, "/api/userInfo", infoList);
           $("#blockBox").text("学生信息列表");
         } else if (data.context.name === "signInList") {
-          createTable(table, "/api/signIn", signInList);
+          createTable(table, "/api/signInAll", signInList);
           $("#blockBox").text("学生签到列表");
         }
       });
