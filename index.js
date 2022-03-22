@@ -140,16 +140,16 @@ app.get("/api/signInAll", async (req, res) => {
     var signInList = await SignIn.findAll({
       include: [{ model: UserInfo, attributes: ["name"] }],
     });
-    var clos = signInList;
-    if (url === "/api/signInAll") {
-      for (let index = 0; index < signInList.length; index++) {
-        clos[index].name = signInList[index].UserInfo.name;
-      }
-    }
-    console.log(signInList);
+    // var clos = signInList;
+    // if (url === "/api/signInAll") {
+    //   for (let index = 0; index < signInList.length; index++) {
+    //     clos[index].name = signInList[index].UserInfo.name;
+    //   }
+    // }
+    // console.log(signInList);
     res.send({
       code: 0,
-      data: clos,
+      data: signInList,
     });
   } catch (error) {
     res.send({
