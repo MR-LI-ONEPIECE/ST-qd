@@ -145,7 +145,7 @@ app.get("/api/signInAll", async (req, res) => {
     const signInList = await SignIn.findAll(
       {
         include: [
-          { model: UserInfo, attributes: ['name'] }
+          { model: UserInfo, as: 'u', attributes: ['name'] }
         ]
       }
     );
