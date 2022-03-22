@@ -69,14 +69,21 @@ app.post("/api/userInfo", async (req, res) => {
   });
 });
 //获取用户列表
-app.get("/api/userInfo", async (req, res) => {
+app.post("/api/userInfo", async (req, res) => {
+  const result = req.body;
+  console.log(result);
   try {
-    const userList = await UserInfo.findAll();
+    const userList = await UserInfo.findOne({
+      where: {
+        username: result.username,
+        password: result.password
+      }
+    });
 
     console.log(userList);
     res.send({
       code: 0,
-      data: userList,
+      data: userList
     });
   } catch (error) {
     res.send({
@@ -125,7 +132,7 @@ app.get("/api/signIn", async (req, res) => {
 });
 
 //登陆
-app.get("/api/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const result = req.body;
   console.log(result);
   try {

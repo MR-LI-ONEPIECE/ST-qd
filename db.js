@@ -131,10 +131,7 @@ const SignIn = sequelize.define("signIn", {
 });
 // 数据库初始化方法
 async function init() {
-  await Counter.sync({ alter: true });
-  await UserInfo.sync({ alter: true });
-  await SignIn.sync({ alter: true });
-  await Login.sync({ alter: true });
+  await sequelize.sync({ force: true });
 }
 
 // 导出初始化方法和模型
