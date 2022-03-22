@@ -56,7 +56,7 @@ app.get("/api/wx_openid", async (req, res) => {
 app.post("/api/userInfo", async (req, res) => {
   const result = req.body;
   try {
-    const userInfo = await UserInfo.upsert(result, { openId: result.openId })
+    const userInfo = await UserInfo.upsert(result, { validate: true })
     console.log(userInfo)
     res.send({
       code: 0,
