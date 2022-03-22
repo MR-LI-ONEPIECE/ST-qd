@@ -152,7 +152,7 @@ app.get("/api/signInAll", async (req, res) => {
       code: 0,
       data: signInList.map((item) => {
         var data = item;
-        data.name = item.UserInfo.name;
+        data["name"] = item.UserInfo.name;
         return data;
       }),
     });
