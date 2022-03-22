@@ -135,22 +135,17 @@ app.post("/api/login", async (req, res) => {
         password: result.password
       }
     });
-    console.log(data);
-    res.send({
-      code: 0,
-      data: data,
-    });
-    // if (
-    //   data[0].username === result.username &&
-    //   data[0].password === result.password
-    // ) {
-
-    // } else {
-    //   res.send({
-    //     code: 400,
-    //     error: "账号或密码错误",
-    //   });
-    // }
+    if (data) {
+      res.send({
+        code: 0,
+        data: data,
+      });
+    } else {
+      res.send({
+        code: 400,
+        error: "账号或密码错误",
+      });
+    }
   } catch (error) {
     res.send({
       code: 400,
