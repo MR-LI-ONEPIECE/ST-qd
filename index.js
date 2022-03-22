@@ -134,35 +134,27 @@ app.get("/api/signIn", async (req, res) => {
 
 //获取所有学生签到列表
 app.get("/api/signInAll", async (req, res) => {
-  const result = req.query;
-  console.log(result);
-  try {
-    var signInList = await SignIn.findAll({
-      include: [{ model: UserInfo, attributes: ["name"] }],
+  // const result = req.query;
+  // console.log(result);
+  SignIn.findAll({
+    include: [{ model: UserInfo, attributes: ["name"] }],
+  })
+    .then((result) => {
+      var data = result.map((item) => {
+        item.name = item.UserInfo.name;
+        return item;
+      });
+      res.send({
+        code: 0,
+        data,
+      });
+    })
+    .catch((error) => {
+      res.send({
+        code: 400,
+        error: error,
+      });
     });
-    // var clos = signInList;
-    // if (url === "/api/signInAll") {
-    //   for (let index = 0; index < signInList.length; index++) {
-    //     clos[index].name = signInList[index].UserInfo.name;
-    //   }
-    // }
-    // console.log(signInList);
-
-    res.send({
-      code: 0,
-      data: signInList.map((item) => {
-        var data = item;
-        data["name"] = item.UserInfo.name;
-        return data;
-      }),
-    });
-  } catch (error) {
-    res.send({
-      code: 400,
-      error: error,
-      data: result,
-    });
-  }
 });
 
 //登陆
