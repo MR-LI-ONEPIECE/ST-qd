@@ -141,8 +141,10 @@ app.get("/api/signInAll", async (req, res) => {
   })
     .then((result) => {
       var data = result.map((item) => {
-        item.name = item.UserInfo.name;
-        return item;
+        return {
+          ...item,
+          name: item.UserInfo.name,
+        };
       });
       res.send({
         code: 0,
