@@ -115,7 +115,8 @@ app.get("/api/signIn", async (req, res) => {
     const signInList = await SignIn.findAll({
       where: {
         openId: result.openId
-      }
+      },
+      attributes: ['id', 'year', 'month', 'day', 'createAt', 'updateAt']
     });
 
     console.log(signInList);
