@@ -125,10 +125,16 @@ app.get("/api/signIn", async (req, res) => {
 });
 
 //登陆
-app.get("/api/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
+  const result = req.body;
 
   try {
-    const data = await Login.findAll();
+    const data = await Login.findOne({
+      where: {
+        username: result.username,
+        password: result.password
+      }
+    });
     console.log(data);
     res.send({
       code: 0,
