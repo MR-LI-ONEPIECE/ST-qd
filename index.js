@@ -149,7 +149,7 @@ app.get("/api/signInAll", async (req, res) => {
     console.log(signInList);
     res.send({
       code: 0,
-      data: signInList,
+      data: clos,
     });
   } catch (error) {
     res.send({
