@@ -147,9 +147,10 @@ app.get("/api/signInAll", async (req, res) => {
     //   }
     // }
     // console.log(signInList);
+    var clos = signInList.map((item) => (item.name = item.UserInfo.name));
     res.send({
       code: 0,
-      data: signInList,
+      data: clos,
     });
   } catch (error) {
     res.send({
