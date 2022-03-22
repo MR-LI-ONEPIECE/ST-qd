@@ -110,10 +110,16 @@ app.post("/api/signIn", async (req, res) => {
 
 //获取学生签到列表
 app.get("/api/signIn", async (req, res) => {
-  const result = req.body;
+  const result = req.query;
   console.log(result)
   try {
-    const signInList = await SignIn.findAll();
+    const signInList = await SignIn.findAll(
+      {
+        where: {
+          openId: result.openId
+        }
+      }
+    );
 
     console.log(signInList);
     res.send({
@@ -124,6 +130,7 @@ app.get("/api/signIn", async (req, res) => {
     res.send({
       code: 400,
       error: error,
+      data: result
     });
   }
 });
