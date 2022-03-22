@@ -137,7 +137,7 @@ app.get("/api/signInAll", async (req, res) => {
   const result = req.query;
   console.log(result);
   try {
-    const signInList = await SignIn.findAll({
+    var signInList = await SignIn.findAll({
       include: [{ model: UserInfo, attributes: ["name"] }],
     });
     var clos = signInList;
@@ -147,12 +147,10 @@ app.get("/api/signInAll", async (req, res) => {
       }
     }
     console.log(signInList);
-    setTimeout(() => {
-      res.send({
-        code: 0,
-        data: signInList,
-      });
-    }, 1000);
+    res.send({
+      code: 0,
+      data: signInList,
+    });
   } catch (error) {
     res.send({
       code: 400,
