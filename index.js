@@ -128,7 +128,7 @@ app.get("/api/signIn", async (req, res) => {
 app.get("/api/login", async (req, res) => {
 
   try {
-    var data = await Login.findAll();
+    const data = await Login.findAll();
     console.log(data);
     res.send({
       code: 0,
@@ -150,7 +150,6 @@ app.get("/api/login", async (req, res) => {
       code: 400,
       error: error,
     });
-    return;
   }
 });
 

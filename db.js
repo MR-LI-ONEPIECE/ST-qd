@@ -140,4 +140,5 @@ module.exports = {
   Counter,
   UserInfo,
   SignIn,
+  Login
 };
