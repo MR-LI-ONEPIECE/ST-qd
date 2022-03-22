@@ -73,12 +73,7 @@ app.post("/api/userInfo", async (req, res) => {
   const result = req.body;
   console.log(result);
   try {
-    const userList = await UserInfo.findOne({
-      where: {
-        username: result.username,
-        password: result.password
-      }
-    });
+    const userList = await UserInfo.findOne();
 
     console.log(userList);
     res.send({
