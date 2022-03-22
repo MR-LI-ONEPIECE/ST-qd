@@ -47,7 +47,7 @@ app.get("/api/wx_openid", async (req, res) => {
   if (req.headers["x-wx-source"]) {
     res.send({
       code: 0,
-      data: req.headers["x-wx-openid"]
+      data: req.headers["x-wx-openid"],
     });
   }
 });
@@ -56,13 +56,12 @@ app.get("/api/wx_openid", async (req, res) => {
 app.post("/api/userInfo", async (req, res) => {
   const result = req.body;
   try {
-    const userInfo = await UserInfo.upsert(result, { validate: true })
-    console.log(userInfo)
+    const userInfo = await UserInfo.upsert(result, { validate: true });
+    console.log(userInfo);
     res.send({
       code: 0,
       data: userInfo,
     });
-
   } catch (error) {
     res.send({
       code: 400,
@@ -70,8 +69,6 @@ app.post("/api/userInfo", async (req, res) => {
     });
     return;
   }
-
-
 });
 //获取用户列表
 app.get("/api/userInfo", async (req, res) => {
@@ -113,15 +110,13 @@ app.post("/api/signIn", async (req, res) => {
 //获取某个学生签到列表
 app.get("/api/signIn", async (req, res) => {
   const result = req.query;
-  console.log(result)
+  console.log(result);
   try {
-    const signInList = await SignIn.findAll(
-      {
-        where: {
-          openId: result.openId
-        }
-      }
-    );
+    const signInList = await SignIn.findAll({
+      where: {
+        openId: result.openId,
+      },
+    });
 
     console.log(signInList);
     res.send({
@@ -132,7 +127,7 @@ app.get("/api/signIn", async (req, res) => {
     res.send({
       code: 400,
       error: error,
-      data: result
+      data: result,
     });
   }
 });
@@ -140,26 +135,29 @@ app.get("/api/signIn", async (req, res) => {
 //获取所有学生签到列表
 app.get("/api/signInAll", async (req, res) => {
   const result = req.query;
-  console.log(result)
+  console.log(result);
   try {
-    const signInList = await SignIn.findAll(
-      {
-        include: [
-          { model: UserInfo, attributes: ['name'] }
-        ]
-      }
-    );
-
-    console.log(signInList);
-    res.send({
-      code: 0,
-      data: signInList,
+    const signInList = await SignIn.findAll({
+      include: [{ model: UserInfo, attributes: ["name"] }],
     });
+    var clos = signInList;
+    if (url === "/api/signInAll") {
+      for (let index = 0; index < signInList.length; index++) {
+        clos[index].name = signInList[index].UserInfo.name;
+      }
+    }
+    console.log(signInList);
+    setTimeout(() => {
+      res.send({
+        code: 0,
+        data: signInList,
+      });
+    }, 1000);
   } catch (error) {
     res.send({
       code: 400,
       error: error,
-      data: result
+      data: result,
     });
   }
 });
@@ -172,8 +170,8 @@ app.post("/api/login", async (req, res) => {
     const data = await Login.findOne({
       where: {
         username: result.username,
-        password: result.password
-      }
+        password: result.password,
+      },
     });
     if (data) {
       res.send({
