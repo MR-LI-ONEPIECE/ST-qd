@@ -69,16 +69,14 @@ app.post("/api/userInfo", async (req, res) => {
   });
 });
 //获取用户列表
-app.post("/api/userInfo", async (req, res) => {
-  const result = req.body;
-  console.log(result);
+app.get("/api/userInfo", async (req, res) => {
   try {
-    const userList = await UserInfo.findOne();
+    const userList = await UserInfo.findAll();
 
     console.log(userList);
     res.send({
       code: 0,
-      data: userList
+      data: userList,
     });
   } catch (error) {
     res.send({
