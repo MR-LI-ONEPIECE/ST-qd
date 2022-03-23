@@ -134,54 +134,68 @@ app.get("/api/signIn", async (req, res) => {
 
 //获取所有学生签到列表
 app.get("/api/signInAll", async (req, res) => {
-  // const result = req.query;
-  // console.log(result);
-  // var signInList = await SignIn.findAll({
-  //   include: [{ model: UserInfo, attributes: ["name"] }],
-  // })
-
-  // res.send({
-  //   code: 0,
-  //   signInList,
-  // });
-  var signInList = [
-    {
-      UserInfo: { name: "王五" },
-      createdAt: "2022-03-22T06:45:06.000Z",
-      day: "22",
-      month: "3",
-      openId: "ooNC24v8frtkED11KubPBe3QNs-E",
-      updatedAt: "2022-03-22T06:45:06.000Z",
-      year: "2022"
-    }
-  ]
-  new Promise(function (resolve, reject) {
+  SignIn.findAll({
+    include: [{ model: UserInfo, attributes: ["name"] }],
+  }).then((result) => {
     var data = signInList.map((item) => {
       return {
         ...item,
         name: item.UserInfo.name,
       };
     });
+    resolve(data)
 
-    if (data) {
-      resolve(data)
-    } else {
-      reject(1)
-    }
-  }).then((data) => {
-    console.log(data)
+  }).resolve((data) => {
     res.send({
       code: 0,
       data,
     });
-  })
-    .catch((error) => {
-      console.log(error)
-      res.send({
-        code: 400,
-        error: error,
-      });
+  }).catch((error) => {
+    res.send({
+      code: 400,
+      error: error,
     });
+  })
+
+
+  // var signInList = [
+  //   {
+  //     UserInfo: { name: "王五" },
+  //     createdAt: "2022-03-22T06:45:06.000Z",
+  //     day: "22",
+  //     month: "3",
+  //     openId: "ooNC24v8frtkED11KubPBe3QNs-E",
+  //     updatedAt: "2022-03-22T06:45:06.000Z",
+  //     year: "2022"
+  //   }
+  // ];
+  // new Promise(function (resolve, reject) {
+  //   var data = signInList.map((item) => {
+  //     return {
+  //       ...item,
+  //       name: item.UserInfo.name,
+  //     };
+  //   });
+
+  //   if (data) {
+  //     resolve(data)
+  //   } else {
+  //     reject(1)
+  //   }
+  // }).then((data) => {
+  //   console.log(data)
+  //   res.send({
+  //     code: 0,
+  //     data,
+  //   });
+  // })
+  //   .catch((error) => {
+  //     console.log(error)
+  //     res.send({
+  //       code: 400,
+  //       error: error,
+  //     });
+  //   });
 
 });
 
