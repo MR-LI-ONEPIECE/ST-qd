@@ -149,22 +149,22 @@ app.get("/api/signInAll", async (req, res) => {
     setTimeout(() => {
       if (data) {
         resolve(data)
+      } else {
+        reject(1)
       }
-      // reject(data)
     }, 3000);
-
   }).then((data) => {
     res.send({
       code: 0,
       data,
     });
   })
-  // .catch((error) => {
-  //   res.send({
-  //     code: 400,
-  //     error: error,
-  //   });
-  // });
+    .catch((error) => {
+      res.send({
+        code: 400,
+        error: error,
+      });
+    });
 
 });
 
