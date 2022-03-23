@@ -150,7 +150,7 @@ app.get("/api/signInAll", async (req, res) => {
       if (data) {
         resolve(data)
       }
-      reject(data)
+      // reject(data)
     }, 3000);
 
   }).then((data) => {
@@ -159,12 +159,12 @@ app.get("/api/signInAll", async (req, res) => {
       data,
     });
   })
-    .catch((error) => {
-      res.send({
-        code: 400,
-        error: error,
-      });
-    });
+  // .catch((error) => {
+  //   res.send({
+  //     code: 400,
+  //     error: error,
+  //   });
+  // });
 
 });
 
