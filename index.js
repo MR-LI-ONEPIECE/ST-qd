@@ -149,6 +149,7 @@ app.get("/api/signInAll", async (req, res) => {
     if (data) {
       resolve(data)
     }
+    reject(data)
   }).then((data) => {
     res.send({
       code: 0,
