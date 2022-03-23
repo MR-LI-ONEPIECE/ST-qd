@@ -288,12 +288,17 @@
         page: true, //开启分页
         cols: [data],
         parseData: function (res) {
-          if (res && res.name) {
+          if (res.data && res.data.name) {
             return res;
           } else {
             return {
-              ...res,
-              name: res.UserInfo.name,
+              code: res.code,
+              data: res.data.map((item) => {
+                return {
+                  ...item,
+                  name: item.name,
+                };
+              }),
             };
           }
         },
