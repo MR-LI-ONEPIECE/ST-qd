@@ -204,6 +204,7 @@
       { field: "month", title: "月", width: 80 },
       { field: "day", title: "日", width: 80, sort: true },
     ];
+    var isLogin = false;
     //JS
     layui.use(["element", "layer", "util", "table", "form"], function () {
       var element = layui.element,
@@ -235,6 +236,7 @@
           if (res && res.code === 0) {
             layer.closeAll();
             $("#form").html("");
+            isLogin = true;
           }
         });
       });
@@ -268,18 +270,13 @@
           });
         },
       });
-
-      //用户信息列表
-      table.render({
-        elem: "#userList",
-        height: 500,
-        url: "/api/userInfo", //数据接口
-        page: true, //开启分页
-        cols: [infoList],
-      });
+      createTable(table, "/api/userInfo", infoList);
     });
 
     function createTable(table, url, data) {
+      if (!isLogin) {
+        return;
+      }
       //用户签到列表 或者 用户信息列表
       table.render({
         elem: "#userList",
