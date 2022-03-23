@@ -291,14 +291,16 @@
           if (res.data && res.data.name) {
             return res;
           } else {
+            var data = res.data.map((item) => {
+              return {
+                ...item,
+                name: item.name,
+              };
+            });
+            console.log(data);
             return {
               code: res.code,
-              data: res.data.map((item) => {
-                return {
-                  ...item,
-                  name: item.name,
-                };
-              }),
+              data,
             };
           }
         },
