@@ -139,31 +139,36 @@ app.get("/api/signInAll", async (req, res) => {
   var signInList = await SignIn.findAll({
     include: [{ model: UserInfo, attributes: ["name"] }],
   })
-  new Promise(function (resolve, reject) {
-    var data = signInList.map((item) => {
-      return {
-        ...item,
-        name: item.UserInfo.name,
-      };
-    });
 
-    if (data) {
-      resolve(data)
-    } else {
-      reject(1)
-    }
-  }).then((data) => {
-    res.send({
-      code: 0,
-      data,
-    });
-  })
-    .catch((error) => {
-      res.send({
-        code: 400,
-        error: error,
-      });
-    });
+  res.send({
+    code: 0,
+    signInList,
+  });
+  // new Promise(function (resolve, reject) {
+  //   var data = signInList.map((item) => {
+  //     return {
+  //       ...item,
+  //       name: item.UserInfo.name,
+  //     };
+  //   });
+
+  //   if (data) {
+  //     resolve(data)
+  //   } else {
+  //     reject(1)
+  //   }
+  // }).then((data) => {
+  //   res.send({
+  //     code: 0,
+  //     data,
+  //   });
+  // })
+  //   .catch((error) => {
+  //     res.send({
+  //       code: 400,
+  //       error: error,
+  //     });
+  //   });
 
 });
 
