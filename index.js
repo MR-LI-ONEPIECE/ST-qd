@@ -146,10 +146,13 @@ app.get("/api/signInAll", async (req, res) => {
         name: item.UserInfo.name,
       };
     });
-    if (data) {
-      resolve(data)
-    }
-    reject(data)
+    setTimeout(() => {
+      if (data) {
+        resolve(data)
+      }
+      reject(data)
+    }, 3000);
+
   }).then((data) => {
     res.send({
       code: 0,
