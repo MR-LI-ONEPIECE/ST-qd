@@ -288,7 +288,7 @@
         page: true, //开启分页
         cols: [data],
         parseData: function (res) {
-          if (res.data && res.data.name) {
+          if (res.data && res.data[0].name) {
             return res;
           } else {
             var data = res.data.map((item) => {
