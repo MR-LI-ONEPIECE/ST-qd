@@ -143,17 +143,17 @@ app.get("/api/signInAll", async (req, res) => {
         name: item.UserInfo.name,
       };
     });
-    resolve(data)
+    return data
 
-  }).resolve((data) => {
-    res.send({
-      code: 0,
-      data,
-    });
   }).catch((error) => {
     res.send({
       code: 400,
       error: error,
+    });
+  }).then((data) => {
+    res.send({
+      code: 0,
+      data,
     });
   })
 
