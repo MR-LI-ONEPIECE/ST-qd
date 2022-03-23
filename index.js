@@ -136,19 +136,6 @@ app.get("/api/signIn", async (req, res) => {
 app.get("/api/signInAll", async (req, res) => {
   SignIn.findAll({
     include: [{ model: UserInfo, attributes: ["name"] }],
-  }).then((result) => {
-    var data = result.map((item) => {
-      return {
-        ...item,
-        name: item.UserInfo.name,
-      };
-    });
-    res.send({
-      code: 0,
-      data,
-    });
-    return data
-
   }).then((data) => {
     res.send({
       code: 0,
@@ -160,6 +147,22 @@ app.get("/api/signInAll", async (req, res) => {
       error: error,
     });
   });
+  // .then((result) => {
+
+  //   var data = result.map((item) => {
+  //     return {
+  //       ...item,
+  //       name: item.UserInfo.name,
+  //     };
+  //   });
+  //   res.send({
+  //     code: 0,
+  //     data,
+  //   });
+  //   return data
+
+  // })
+
 
 
   // var signInList = [
