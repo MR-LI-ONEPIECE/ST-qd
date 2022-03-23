@@ -140,7 +140,14 @@ app.get("/api/signInAll", async (req, res) => {
     include: [{ model: UserInfo, attributes: ["name"] }],
   })
     .then((result) => {
-      var data = concatData(result);
+      return result.map((item) => {
+        return {
+          ...item,
+          name: item.UserInfo.name,
+        };
+      });
+
+    }).then((data) => {
       res.send({
         code: 0,
         data,
@@ -153,15 +160,6 @@ app.get("/api/signInAll", async (req, res) => {
       });
     });
 });
-
-function concatData(result) {
-  return result.map((item) => {
-    return {
-      ...item,
-      name: item.UserInfo.name,
-    };
-  });
-}
 
 //登陆
 app.post("/api/login", async (req, res) => {
