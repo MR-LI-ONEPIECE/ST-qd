@@ -143,19 +143,23 @@ app.get("/api/signInAll", async (req, res) => {
         name: item.UserInfo.name,
       };
     });
+    res.send({
+      code: 0,
+      data,
+    });
     return data
 
-  }).catch((error) => {
-    res.send({
-      code: 400,
-      error: error,
-    });
   }).then((data) => {
     res.send({
       code: 0,
       data,
     });
-  })
+  }).catch((error) => {
+    res.send({
+      code: 400,
+      error: error,
+    });
+  });
 
 
   // var signInList = [
