@@ -140,25 +140,25 @@ app.get("/api/signInAll", async (req, res) => {
     include: [{ model: UserInfo, attributes: ["name"] }],
   })
     .then((result) => {
-      return result.map((item) => {
+      var data = result.map((item) => {
         return {
           ...item,
           name: item.UserInfo.name,
         };
       });
-
-    }).then((data) => {
       res.send({
         code: 0,
         data,
       });
     })
-    .catch((error) => {
-      res.send({
-        code: 400,
-        error: error,
-      });
-    });
+  // .then((data) => {
+  // })
+  // .catch((error) => {
+  //   res.send({
+  //     code: 400,
+  //     error: error,
+  //   });
+  // });
 });
 
 //登陆
