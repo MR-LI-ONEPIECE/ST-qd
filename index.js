@@ -137,7 +137,7 @@ app.get("/api/signInAll", async (req, res) => {
   SignIn.findAll({
     include: [{ model: UserInfo, attributes: ["name"] }],
   }).then((result) => {
-    var data = signInList.map((item) => {
+    var data = result.map((item) => {
       return {
         ...item,
         name: item.UserInfo.name,
