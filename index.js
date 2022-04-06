@@ -100,10 +100,10 @@ app.post("/api/signIn", async (req, res) => {
       },
     })
     const newUserInfo = {
-      ...userInfo,
-      credit: userInfo.credit + 1
+      ...userInfo.dataValues,
+      credit: userInfo.dataValues.credit + 1
     }
-    // await UserInfo.upsert(newUserInfo, { validate: true });
+    await UserInfo.upsert(newUserInfo, { validate: true });
     res.send({
       code: 0,
       data: newUserInfo,
