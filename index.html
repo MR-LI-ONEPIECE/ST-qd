@@ -272,6 +272,14 @@
         },
       });
       createTable(table, "/api/userInfo", infoList);
+
+      //监听单元格编辑
+      table.on("edit(userList)", function (obj) {
+        var value = obj.value, //得到修改后的值
+          data = obj.data, //得到所在行所有键值
+          field = obj.field; //得到字段
+        layer.msg("[ID: " + data.id + "] " + field + " 字段更改值为：" + util.escape(value));
+      });
     });
 
     function createTable(table, url, data) {
