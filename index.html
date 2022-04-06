@@ -333,7 +333,10 @@
                 method: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(data),
+                data: JSON.stringify({
+                  ...data,
+                  credit: value,
+                }),
               }).done(function (res) {
                 if (res && res.code === 0) {
                   obj.update({
