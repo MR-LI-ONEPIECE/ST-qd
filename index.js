@@ -105,6 +105,28 @@ app.post("/api/update/userInfo", async (req, res) => {
   }
 })
 
+//删除用户信息
+app.delete("/api/userInfo", async (req, res) => {
+  const result = req.body;
+  try {
+    await UserInfo.destroy({
+      where: {
+        openId: result.openId,
+      }
+    });
+    res.send({
+      code: 0,
+      data: result,
+    });
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: error,
+    });
+  }
+}
+)
+
 //学生签到
 app.post("/api/signIn", async (req, res) => {
   const result = req.body;

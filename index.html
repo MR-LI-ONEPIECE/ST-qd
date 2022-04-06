@@ -314,11 +314,22 @@
       //监听行工具事件
       table.on("tool(test)", function (obj) {
         var data = obj.data;
-        //console.log(obj)
         if (obj.event === "del") {
           layer.confirm("是否确定删除该行？", function (index) {
-            obj.del();
-            layer.close(index);
+            //删除信息
+            $.ajax("/api/userInfo", {
+              method: "DELETE",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              data: JSON.stringify(data),
+            }).done(function (res) {
+              if (res && res.code === 0) {
+                obj.del();
+                layer.close(index);
+              } else {
+                layer.msg("删除失败");
+              }
+            });
           });
         } else if (obj.event === "edit") {
           console.log(data);
