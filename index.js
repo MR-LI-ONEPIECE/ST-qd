@@ -88,6 +88,23 @@ app.get("/api/userInfo", async (req, res) => {
   }
 });
 
+//更改用户信息
+app.post("/api/update/userInfo", async (req, res) => {
+  const result = req.body;
+  try {
+    await UserInfo.upsert(result, { validate: true });
+    res.send({
+      code: 0,
+      data: result,
+    });
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: error,
+    });
+  }
+})
+
 //学生签到
 app.post("/api/signIn", async (req, res) => {
   const result = req.body;
