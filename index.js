@@ -103,7 +103,11 @@ app.post("/api/signIn", async (req, res) => {
       ...userInfo,
       credit: userInfo.credit + 1
     }
-    await UserInfo.upsert(newUserInfo, { validate: true });
+    // await UserInfo.upsert(newUserInfo, { validate: true });
+    res.send({
+      code: 0,
+      data: newUserInfo,
+    });
   } catch (error) {
     res.send({
       code: 400,
@@ -111,10 +115,7 @@ app.post("/api/signIn", async (req, res) => {
     });
     return;
   }
-  res.send({
-    code: 0,
-    data: result,
-  });
+
 });
 
 //获取某个学生签到列表
