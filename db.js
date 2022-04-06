@@ -109,6 +109,10 @@ const UserInfo = sequelize.define("UserInfo", {
     allowNull: true,
     primaryKey: true,
   },
+  credit: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  }
 });
 
 //签到信息

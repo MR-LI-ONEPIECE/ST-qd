@@ -94,6 +94,16 @@ app.post("/api/signIn", async (req, res) => {
   console.log(result);
   try {
     await SignIn.create(result);
+    const userInfo = await UserInfo.findOne({
+      where: {
+        openId: result.openId,
+      },
+    })
+    const newUserInfo = {
+      ...userInfo,
+      credit: userInfo.credit + 1
+    }
+    await UserInfo.upsert(newUserInfo, { validate: true });
   } catch (error) {
     res.send({
       code: 400,
@@ -147,63 +157,6 @@ app.get("/api/signInAll", async (req, res) => {
       error: error,
     });
   });
-  // .then((result) => {
-
-  //   var data = result.map((item) => {
-  //     return {
-  //       ...item,
-  //       name: item.UserInfo.name,
-  //     };
-  //   });
-  //   res.send({
-  //     code: 0,
-  //     data,
-  //   });
-  //   return data
-
-  // })
-
-
-
-  // var signInList = [
-  //   {
-  //     UserInfo: { name: "王五" },
-  //     createdAt: "2022-03-22T06:45:06.000Z",
-  //     day: "22",
-  //     month: "3",
-  //     openId: "ooNC24v8frtkED11KubPBe3QNs-E",
-  //     updatedAt: "2022-03-22T06:45:06.000Z",
-  //     year: "2022"
-  //   }
-  // ];
-  // new Promise(function (resolve, reject) {
-  //   var data = signInList.map((item) => {
-  //     return {
-  //       ...item,
-  //       name: item.UserInfo.name,
-  //     };
-  //   });
-
-  //   if (data) {
-  //     resolve(data)
-  //   } else {
-  //     reject(1)
-  //   }
-  // }).then((data) => {
-  //   console.log(data)
-  //   res.send({
-  //     code: 0,
-  //     data,
-  //   });
-  // })
-  //   .catch((error) => {
-  //     console.log(error)
-  //     res.send({
-  //       code: 400,
-  //       error: error,
-  //     });
-  //   });
-
 });
 
 //登陆
