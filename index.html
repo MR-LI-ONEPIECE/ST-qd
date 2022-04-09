@@ -215,7 +215,9 @@
     var signInList = [
       //表头
       // { field: "id", title: "ID", width: 80, sort: true},
+
       { field: "name", title: "姓名", width: 80, sort: true, fixed: "left" },
+      { field: "activityId", title: "活动id", width: 80, sort: true },
       { field: "year", title: "年", width: 80, sort: true },
       { field: "month", title: "月", width: 80, sort: true },
       { field: "day", title: "日", width: 80, sort: true },
@@ -268,9 +270,6 @@
       });
       //头部事件
       util.event("lay-header-event", {
-        menubar: function (data) {
-          console.log(data);
-        },
         //左侧菜单事件
         menuLeft: function (othis) {
           layer.msg("展开左侧菜单的操作", { icon: 0 });
@@ -332,7 +331,6 @@
             });
           });
         } else if (obj.event === "edit") {
-          console.log(data);
           layer.prompt(
             {
               formType: 2,
