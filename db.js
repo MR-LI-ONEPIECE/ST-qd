@@ -129,11 +129,16 @@ const SignIn = sequelize.define("signIn", {
     type: DataTypes.CHAR,
     allowNull: true,
   },
+  activityId: {
+    type: DataTypes.CHAR,
+    allowNull: true,
+  },
   openId: {
     type: DataTypes.CHAR,
     allowNull: true,
     primaryKey: true,
   },
+
 });
 
 //关联表

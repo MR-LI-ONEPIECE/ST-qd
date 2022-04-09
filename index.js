@@ -57,7 +57,7 @@ app.post("/api/userInfo", async (req, res) => {
   const result = req.body;
   try {
     const userInfo = await UserInfo.upsert(result, { validate: true });
-    console.log(userInfo);
+
     res.send({
       code: 0,
       data: userInfo,
@@ -75,7 +75,6 @@ app.get("/api/userInfo", async (req, res) => {
   try {
     const userList = await UserInfo.findAll();
 
-    console.log(userList);
     res.send({
       code: 0,
       data: userList,
@@ -130,7 +129,6 @@ app.delete("/api/userInfo", async (req, res) => {
 //学生签到
 app.post("/api/signIn", async (req, res) => {
   const result = req.body;
-  console.log(result);
   try {
     await SignIn.create(result);
     const userInfo = await UserInfo.findOne({
@@ -160,15 +158,15 @@ app.post("/api/signIn", async (req, res) => {
 //获取某个学生签到列表
 app.get("/api/signIn", async (req, res) => {
   const result = req.query;
-  console.log(result);
+
   try {
     const signInList = await SignIn.findAll({
       where: {
         openId: result.openId,
+        activityId: result.activityId
       },
     });
 
-    console.log(signInList);
     res.send({
       code: 0,
       data: signInList,
