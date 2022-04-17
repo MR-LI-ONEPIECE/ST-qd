@@ -191,7 +191,7 @@ app.get("/api/signInAll", async (req, res) => {
   const result = req.query;
   try {
     const signInList = await SignIn.findAll({
-      include: [{ model: UserInfo, attributes: ["name"] }],
+      // include: [{ model: UserInfo, attributes: ["name"] }],
       where: {
         [Op.or]: [{ name: result.key }, { title: result.key }],
       },
