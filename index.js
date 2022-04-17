@@ -198,7 +198,7 @@ app.get("/api/signInAll", async (req, res) => {
     } else {
       signInList = await SignIn.findAll({
         where: {
-          [Op.eq]: result.key,
+          title: result.key,
         },
       });
     }
