@@ -112,7 +112,7 @@ const UserInfo = sequelize.define("UserInfo", {
   credit: {
     type: DataTypes.INTEGER,
     allowNull: true,
-  }
+  },
 });
 
 //签到信息
@@ -138,11 +138,23 @@ const SignIn = sequelize.define("signIn", {
     allowNull: true,
     primaryKey: true,
   },
+});
 
+//活动列表
+const Activity = sequelize.define("Activity", {
+  name: {
+    type: DataTypes.CHAR,
+    allowNull: true,
+  },
+  id: {
+    type: DataTypes.INTEGER, // 要与数据库声明的类型匹配
+    autoIncrementIdentity: true, // 自增
+    primaryKey: true, // 主键
+  },
 });
 
 //关联表
-SignIn.belongsTo(UserInfo, { foreignKey: 'openId', targetKey: 'openId' })
+SignIn.belongsTo(UserInfo, { foreignKey: "openId", targetKey: "openId" });
 
 // 数据库初始化方法
 async function init() {
@@ -155,5 +167,6 @@ module.exports = {
   Counter,
   UserInfo,
   SignIn,
-  Login
+  Login,
+  Activity,
 };

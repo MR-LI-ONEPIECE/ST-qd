@@ -2,7 +2,14 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const { init: initDB, Counter, UserInfo, SignIn, Login } = require("./db");
+const {
+  init: initDB,
+  Counter,
+  UserInfo,
+  SignIn,
+  Login,
+  Activity,
+} = require("./db");
 
 const logger = morgan("tiny");
 
@@ -102,7 +109,7 @@ app.post("/api/update/userInfo", async (req, res) => {
       error: error,
     });
   }
-})
+});
 
 //删除用户信息
 app.delete("/api/userInfo", async (req, res) => {
@@ -111,7 +118,7 @@ app.delete("/api/userInfo", async (req, res) => {
     await UserInfo.destroy({
       where: {
         openId: result.openId,
-      }
+      },
     });
     res.send({
       code: 0,
@@ -123,8 +130,7 @@ app.delete("/api/userInfo", async (req, res) => {
       error: error,
     });
   }
-}
-)
+});
 
 //学生签到
 app.post("/api/signIn", async (req, res) => {
@@ -135,11 +141,11 @@ app.post("/api/signIn", async (req, res) => {
       where: {
         openId: result.openId,
       },
-    })
+    });
     const newUserInfo = {
       ...userInfo.dataValues,
-      credit: userInfo.dataValues.credit + 1
-    }
+      credit: userInfo.dataValues.credit + 1,
+    };
     await UserInfo.upsert(newUserInfo, { validate: true });
     res.send({
       code: 0,
@@ -152,7 +158,6 @@ app.post("/api/signIn", async (req, res) => {
     });
     return;
   }
-
 });
 
 //获取某个学生签到列表
@@ -163,7 +168,7 @@ app.get("/api/signIn", async (req, res) => {
     const signInList = await SignIn.findAll({
       where: {
         openId: result.openId,
-        activityId: result.activityId
+        activityId: result.activityId,
       },
     });
 
@@ -184,17 +189,58 @@ app.get("/api/signIn", async (req, res) => {
 app.get("/api/signInAll", async (req, res) => {
   SignIn.findAll({
     include: [{ model: UserInfo, attributes: ["name"] }],
-  }).then((data) => {
+  })
+    .then((data) => {
+      res.send({
+        code: 0,
+        data,
+      });
+    })
+    .catch((error) => {
+      res.send({
+        code: 400,
+        error: error,
+      });
+    });
+});
+
+//获取活动列表
+app.get("/api/activity", async (req, res) => {
+  const result = req.query;
+
+  try {
+    const dataList = await Activity.findAll();
+
     res.send({
       code: 0,
-      data,
+      data: dataList,
     });
-  }).catch((error) => {
+  } catch (error) {
     res.send({
       code: 400,
       error: error,
+      data: result,
     });
-  });
+  }
+});
+
+//添加活动
+app.post("/api/activity", async (req, res) => {
+  const result = req.query;
+
+  try {
+    const dataList = await Activity.create(result);
+    res.send({
+      code: 0,
+      data: dataList,
+    });
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: error,
+      data: result,
+    });
+  }
 });
 
 //登陆
