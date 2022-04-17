@@ -227,12 +227,11 @@ app.get("/api/activity", async (req, res) => {
 //添加活动
 app.post("/api/activity", async (req, res) => {
   const result = req.query;
-
   try {
-    const dataList = await Activity.upsert(result);
+    const dataList = await Activity.create(result);
     res.send({
       code: 0,
-      data: dataList,
+      data: result,
     });
   } catch (error) {
     res.send({
