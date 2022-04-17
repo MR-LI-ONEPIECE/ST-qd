@@ -10,6 +10,7 @@ const {
   Login,
   Activity,
 } = require("./db");
+const { Op } = require("sequelize");
 
 const logger = morgan("tiny");
 
@@ -191,10 +192,13 @@ app.get("/api/signInAll", async (req, res) => {
   try {
     const signInList = await SignIn.findAll({
       include: [{ model: UserInfo, attributes: ["name"] }],
+      where: {
+        [Op.or]: [{ name: result.key }, { title: result.key }],
+      },
     });
     res.send({
       code: 0,
-      data: result,
+      data: signInList,
     });
   } catch (error) {
     res.send({
