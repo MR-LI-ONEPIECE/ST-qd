@@ -202,12 +202,12 @@ app.get("/api/signInAll", async (req, res) => {
             model: UserInfo,
             attributes: ["name"],
             where: {
-              name: result.key,
+              [Op.like]: { [Op.any]: [result.key] },
             },
           },
         ],
         where: {
-          title: result.key,
+          [Op.like]: { [Op.any]: [result.key] },
         },
       });
     }
