@@ -309,13 +309,13 @@
             var demoReload = $("#demoReload");
 
             //执行重载
-            table.reload("testReload", {
+            table.reload("currentList", {
               page: {
                 curr: 1, //重新从第 1 页开始
               },
               where: {
                 key: {
-                  id: demoReload.val(),
+                  name: demoReload.val(),
                 },
               },
             });
