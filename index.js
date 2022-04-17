@@ -197,9 +197,15 @@ app.get("/api/signInAll", async (req, res) => {
       });
     } else {
       signInList = await SignIn.findAll({
-        where: {
-          title: result.key,
-        },
+        include: [
+          {
+            model: UserInfo,
+            attributes: ["name"],
+            where: {
+              name: result.key,
+            },
+          },
+        ],
       });
     }
 
