@@ -187,21 +187,21 @@ app.get("/api/signIn", async (req, res) => {
 
 //获取所有学生签到列表
 app.get("/api/signInAll", async (req, res) => {
-  SignIn.findAll({
-    include: [{ model: UserInfo, attributes: ["name"] }],
-  })
-    .then((data) => {
-      res.send({
-        code: 0,
-        data,
-      });
-    })
-    .catch((error) => {
-      res.send({
-        code: 400,
-        error: error,
-      });
+  const result = req.query;
+  try {
+    const signInList = await SignIn.findAll({
+      include: [{ model: UserInfo, attributes: ["name"] }],
     });
+    res.send({
+      code: 0,
+      data: result,
+    });
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: result,
+    });
+  }
 });
 
 //获取活动列表

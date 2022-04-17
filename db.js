@@ -129,6 +129,10 @@ const SignIn = sequelize.define("signIn", {
     type: DataTypes.CHAR,
     allowNull: true,
   },
+  title: {
+    type: DataTypes.CHAR,
+    allowNull: true,
+  },
   activityId: {
     type: DataTypes.CHAR,
     allowNull: true,
