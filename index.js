@@ -226,12 +226,13 @@ app.get("/api/activity", async (req, res) => {
 
 //添加活动
 app.post("/api/activity", async (req, res) => {
-  const result = req.query;
+  const result = req.body;
+
   try {
     const dataList = await Activity.create(result);
     res.send({
       code: 0,
-      data: result,
+      data: dataList,
     });
   } catch (error) {
     res.send({
