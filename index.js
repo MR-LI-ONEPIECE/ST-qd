@@ -190,12 +190,19 @@ app.get("/api/signIn", async (req, res) => {
 app.get("/api/signInAll", async (req, res) => {
   const result = req.query;
   try {
-    const signInList = await SignIn.findAll({
-      // include: [{ model: UserInfo, attributes: ["name"] }],
-      where: {
-        [Op.or]: [{ name: result.key }, { title: result.key }],
-      },
-    });
+    let signInList;
+    if (result.key) {
+      signInList = await SignIn.findAll({
+        include: [{ model: UserInfo, attributes: ["name"] }],
+      });
+    } else {
+      signInList = await SignIn.findAll({
+        where: {
+          [Op.eq]: result.key,
+        },
+      });
+    }
+
     res.send({
       code: 0,
       data: signInList,
