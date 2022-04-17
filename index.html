@@ -155,6 +155,18 @@
           <blockquote class="layui-elem-quote" id="blockBox">
             学生信息列表
           </blockquote>
+          <div class="demoTable">
+            搜索：
+            <div class="layui-inline">
+              <input
+                class="layui-input"
+                name="id"
+                id="demoReload"
+                autocomplete="off"
+              />
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+          </div>
           <table id="userList" lay-filter="test"></table>
 
           <script type="text/html" id="toolbarDemo">
@@ -291,7 +303,20 @@
         util = layui.util,
         $ = layui.$,
         table = layui.table,
-        form = layui.form;
+        form = layui.form,
+        demoReload = $("#demoReload");
+
+      //执行重载
+      table.reload("currentList", {
+        page: {
+          curr: 1, //重新从第 1 页开始
+        },
+        where: {
+          key: {
+            name: demoReload.val(),
+          },
+        },
+      });
 
       layer.open({
         type: 1,
@@ -460,6 +485,7 @@
       }
       //用户签到列表 或者 用户信息列表 或者  活动列表
       table.render({
+        id: "currentList",
         elem: "#userList",
         // height: 500,
         url, //数据接口
