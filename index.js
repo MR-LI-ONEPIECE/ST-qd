@@ -206,6 +206,9 @@ app.get("/api/signInAll", async (req, res) => {
             },
           },
         ],
+        where: {
+          title: result.key,
+        },
       });
     }
 
