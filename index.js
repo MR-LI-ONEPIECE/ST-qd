@@ -229,7 +229,7 @@ app.post("/api/activity", async (req, res) => {
   const result = req.query;
 
   try {
-    const dataList = await Activity.create(result);
+    const dataList = await Activity.upsert(result, { validate: true });
     res.send({
       code: 0,
       data: dataList,
