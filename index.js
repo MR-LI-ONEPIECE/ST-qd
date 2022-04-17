@@ -80,8 +80,18 @@ app.post("/api/userInfo", async (req, res) => {
 });
 //获取用户列表
 app.get("/api/userInfo", async (req, res) => {
+  const result = req.query;
   try {
-    const userList = await UserInfo.findAll();
+    let userList;
+    if (!result.key) {
+      userList = await UserInfo.findAll();
+    } else {
+      userList = await UserInfo.findAll({
+        where: {
+          name: result.key,
+        },
+      });
+    }
 
     res.send({
       code: 0,
@@ -202,13 +212,10 @@ app.get("/api/signInAll", async (req, res) => {
             model: UserInfo,
             attributes: ["name"],
             where: {
-              [Op.like]: { [Op.any]: [result.key] },
+              name: result.key,
             },
           },
         ],
-        where: {
-          [Op.like]: { [Op.any]: [result.key] },
-        },
       });
     }
 
@@ -229,7 +236,16 @@ app.get("/api/activity", async (req, res) => {
   const result = req.query;
 
   try {
-    const dataList = await Activity.findAll();
+    let dataList;
+    if (!result.key) {
+      dataList = await Activity.findAll();
+    } else {
+      dataList = await Activity.findAll({
+        where: {
+          name: result.key,
+        },
+      });
+    }
 
     res.send({
       code: 0,
