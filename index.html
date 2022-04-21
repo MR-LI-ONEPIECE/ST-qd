@@ -206,6 +206,15 @@
               >删除</a
             >
           </script>
+
+          <script type="text/html" id="activityDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="editAct">编辑</a>
+            <a
+              class="layui-btn layui-btn-danger layui-btn-xs"
+              lay-event="delAct"
+              >删除</a
+            >
+          </script>
         </div>
       </div>
     </div>
@@ -293,6 +302,7 @@
     var activityList = [
       { field: "id", title: "ID", width: 80, sort: true, fixed: "left" },
       { field: "name", title: "活动名称", width: 300, sort: true },
+      { title: "操作", toolbar: "#activityDemo", width: 150, fixed: "right" },
     ];
     //登录验证
     var isLogin = false;
@@ -441,6 +451,7 @@
       table.on("tool(test)", function (obj) {
         var data = obj.data;
         if (obj.event === "del") {
+          //删除学生信息
           layer.confirm("是否确定删除该行？", function (index) {
             //删除信息
             $.ajax("/api/userInfo", {
@@ -485,6 +496,51 @@
               });
             }
           );
+        } else if (obj.event === "editAct") {
+          //更改活动名
+          layer.prompt(
+            {
+              formType: 2,
+              value: data.name,
+            },
+            function (value, index) {
+              $.ajax("/api/activity", {
+                method: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                  ...data,
+                  name: value,
+                }),
+              }).done(function (res) {
+                if (res && res.code === 0) {
+                  obj.update({
+                    name: value,
+                  });
+                  layer.close(index);
+                } else {
+                  layer.msg("更改失败");
+                }
+              });
+            }
+          );
+        } else if (obj.event === "delAct") {
+          //删除活动
+          layer.confirm("是否确定删除该活动？", function (index) {
+            $.ajax("/api/activity", {
+              method: "DELETE",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              data: JSON.stringify(data),
+            }).done(function (res) {
+              if (res && res.code === 0) {
+                obj.del();
+                layer.close(index);
+              } else {
+                layer.msg("删除失败");
+              }
+            });
+          });
         }
       });
     });

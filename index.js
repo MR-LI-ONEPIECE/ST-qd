@@ -265,7 +265,7 @@ app.post("/api/activity", async (req, res) => {
   const result = req.body;
 
   try {
-    const dataList = await Activity.create(result);
+    const dataList = await Activity.upsert(result, { validate: true });
     res.send({
       code: 0,
       data: dataList,
@@ -279,6 +279,26 @@ app.post("/api/activity", async (req, res) => {
   }
 });
 
+//删除活动
+app.delete("/api/activity", async (req, res) => {
+  const result = req.body;
+  try {
+    await Activity.destroy({
+      where: {
+        id: result.id,
+      },
+    });
+    res.send({
+      code: 0,
+      data: result,
+    });
+  } catch (error) {
+    res.send({
+      code: 400,
+      error: error,
+    });
+  }
+});
 //登陆
 app.post("/api/login", async (req, res) => {
   const result = req.body;
